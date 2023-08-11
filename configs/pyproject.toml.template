@@ -1,0 +1,20 @@
+
+packages = [
+    { include = "PROJECT_MODULE", from = "src" }
+]
+
+[tool.poetry.scripts]
+
+[tool.mypy]
+check_untyped_defs = true
+show_error_codes = true
+warn_unreachable = true
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = "too-few-public-methods, invalid-name, missing-function-docstring, missing-class-docstring, missing-module-docstring, fixme"
+
+[tool.pylint.MASTER]
+extension-pkg-whitelist = "pydantic"
