@@ -24,8 +24,7 @@ poetry run isort --check .
 poetry run mypy --junit-xml=reports/mypy-junit.xml .
 poetry run pylint ${ROOT_MODULE_DIR}
 
-if [[ -d tests ]]; then
-    poetry run pytest --junitxml=reports/pytest-junit.xml
-fi
+[ -d ${ROOT_MODULE_DIR}/tests ] & poetry run pytest --junitxml=reports/pytest-junit.xml
+
 
 popd > /dev/null

@@ -4,7 +4,7 @@
 
 The **AWS CDK Poetry** project aims to automate the generation of AWS CDK (Cloud Development Kit) projects managed with Python Poetry. This documentation provides an overview of the project, its goals, and instructions for setting up and using the automated project generation process.
 
----
+## [![Python Build](https://github.com/kinfinity/AWS_CDK_POETRY/actions/workflows/code-build.yml/badge.svg)](https://github.com/kinfinity/AWS_CDK_POETRY/actions/workflows/code-build.yml) [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 ## Table of Contents
 
@@ -31,7 +31,7 @@ The AWS CDK Poetry project simplifies the process of creating AWS CDK projects w
 
 Before using AWS CDK Poetry, ensure you have the following prerequisites installed:
 
-- WSL 2 - Ubuntu 22.04.2 LTS \[ Tested \]
+- WSL 2 - Ubuntu 22.04.2 LTS
 
 ### Installation
 
@@ -84,8 +84,8 @@ We welcome contributions to the **AWS CDK Poetry** project! If you have ideas fo
 
 ## License
 
-This project is licensed under the The Unlicense. [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+This project is licensed under the The Unlicense.
 
 ---
 
-**AWS CDK Poetry** is maintained by [Your Name](https://github.com/your-username). We appreciate your interest and hope this tool simplifies your AWS CDK project setup process. Happy coding!
+**AWS CDK Poetry** is maintained by [Egbewatt Kokou](https://github.com/kinfinity) . We appreciate your interest and hope this tool simplifies your AWS CDK project setup process. Happy coding!

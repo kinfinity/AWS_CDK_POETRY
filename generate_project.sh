@@ -49,7 +49,7 @@ cleanup_temp(){
     cleanup_file "README.md"
     popd
     popd # get back to base on dir stack
-    [ -f poetry_cdk.readme ] && cp poetry_cdk.readme  CDK_PROJECTS/$PROJECT_NAME/README.md
+    [ -f poetry_cdk.readme.md ] && cp poetry_cdk.readme.md  CDK_PROJECTS/$PROJECT_NAME/README.md
 }
 
 integrate_poetry(){
@@ -74,6 +74,7 @@ initialize_poetry(){
     poetry add black --group dev
     poetry add mypy --group dev
     poetry add pylint --group dev
+    poetry add pytest --group dev
     #  cleanup
     cleanup_file "requirements.txt"
     # poetry export --without-hashes --format=requirements.txt > requirements.txt

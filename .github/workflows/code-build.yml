@@ -7,10 +7,13 @@ on:
   pull_request:
 
 env:
-  PYTHON_VERSION: 3.10.2
+  PYTHON_VERSION: 3.11.2
 
 jobs:
   test-backend-python:
+    permissions:
+      contents: write
+      checks: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -30,7 +33,7 @@ jobs:
 
       - name: Setup Python tools
         run: |
-          pip install poetry==1.1.13
+          pip install poetry==1.5.1
 
       # Add linting once errors fixed
       - name: Build and test all projects
@@ -42,4 +45,4 @@ jobs:
         if: always() && (! contains(github.ref, '/dependabot/'))
         with:
           check_name: Python Tests
-          files: backend/**/reports/*-junit.xml
+          files: CDK_PROJECTS/**/reports/*-junit.xml
