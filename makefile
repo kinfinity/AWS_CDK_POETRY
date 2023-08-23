@@ -1,6 +1,6 @@
 # Makefile for AWS CDK Poetry Project Setup
 
-PROJECT_SCRIPT = generate_project.sh
+PROJECT_SCRIPT = platforms/linux/generate_project.sh
 
 .PHONY: help setup clean
 

@@ -12,8 +12,6 @@ Welcome to the **AWS CDK Poetry Project**! This project template provides a stre
 - [Adding Libraries/Modules](#adding-librariesmodules)
 - [Bootstrapping the CDK](#bootstrapping-the-cdk)
 - [Running CDK Commands](#running-cdk-commands)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -47,14 +45,14 @@ The project directory structure is designed to keep your AWS CDK project organiz
 ├── src/
 │   └── <project-name>/
 │       ├── app.py
-│    	├──<project-name>/
-│    	│  ├── __init__.py/
-│    	│  └── <project-name>_stack.py/
+│        ├──<project-name>/
+│        │  ├── __init__.py/
+│        │  └── <project-name>_stack.py/
 │       └── <tests>/
-│    	   ├── __init__.py/
-│    	   └── <unit>/
-│    		  ├── __init__.py/
-│    		  └── test_<project-name>_stack.py/
+│           ├── __init__.py/
+│           └── <unit>/
+│              ├── __init__.py/
+│              └── test_<project-name>_stack.py/
 ├── .gitignore
 ├── poetry.lock
 └── pyproject.toml
@@ -112,15 +110,3 @@ cdk destroy
 ```
 
 This command will remove all the resources defined in your CDK stacks.
-
-## Contributing
-
-Contributions to the **AWS CDK Poetry Project** are welcome! If you find issues or have suggestions, feel free to submit pull requests or open issues on the project repository.
-
-## License
-
-This project is licensed under the The Unlicense. [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)  
-
----
-
-With the **AWS CDK Poetry Project**, you have a streamlined environment to create, manage, and deploy AWS CDK projects using Python Poetry. This README provides an overview of the project setup and usage. Happy cloud infrastructure development!
