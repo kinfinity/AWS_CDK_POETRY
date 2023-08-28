@@ -13,16 +13,14 @@ SETUP_REQUIREMENTS=$2
 
 # Get absolute path of script dir
 DIR="$( dirname -- "${BASH_SOURCE[0]}"; )"
-pushd ${DIR} > /dev/null
+# pushd ${DIR} > /dev/null
 
 # check & execute setup script
-SCRIPT_PATH="./setup_requirements.sh"
+SCRIPT_PATH="${DIR}/setup_requirements.sh"
 sudo chmod +x $SCRIPT_PATH
 [ ! -z "$SETUP_REQUIREMENTS" ] && [ "$SETUP_REQUIREMENTS" == 'yes' ] && $SCRIPT_PATH
 
 setup_dir() {
-    [ ! -d CDK_PROJECTS ] && mkdir CDK_PROJECTS 
-    pushd CDK_PROJECTS
     [ ! -d $1 ] && mkdir $1 && pushd $1 && cdk init app --language python
 
     mkdir -p src/$1
@@ -48,12 +46,12 @@ cleanup_temp(){
     cleanup_file "source.bat"
     cleanup_file "README.md"
     popd
-    popd # get back to base on dir stack
-    [ -f docs/poetry_cdk.readme.md ] && cp docs/poetry_cdk.readme.md  CDK_PROJECTS/$PROJECT_NAME/README.md
+    # popd # get back to base on dir stack
+    [ -f docs/poetry_cdk.readme.md ] && cp docs/poetry_cdk.readme.md  $PROJECT_NAME/README.md
 }
 
 integrate_poetry(){
-    pushd CDK_PROJECTS/$1
+    pushd $1
     [ ! -f pyproject.toml ] && poetry init -n
     popd
 }
@@ -64,7 +62,7 @@ initialize_poetry(){
     _dangle=`cat extras.toml.template`
     [ -f ./extras.toml.template ] && cleanup_file extras.toml.template
 
-    pushd CDK_PROJECTS/$1
+    pushd $1
     # patch poetry toml 
     awk -v dangle="$_dangle" 'NR == 7 { print dangle } 1' ./pyproject.toml > temp.toml && mv temp.toml ./pyproject.toml
 
@@ -84,7 +82,7 @@ initialize_poetry(){
 }
 
 update_cdk_poetry(){
-    pushd CDK_PROJECTS/$1
+    pushd $1
     invoke_app=$(echo "\"app\": \"poetry run python3 src/${1}/app.py\",")
     # patch cdk file for poetry 
     awk -v invoke_app="$invoke_app" 'NR == 2 { print invoke_app; next } 1' ./cdk.json > cdk.json.temp && mv cdk.json.temp ./cdk.json

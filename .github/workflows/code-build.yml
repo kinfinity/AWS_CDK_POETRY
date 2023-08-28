@@ -45,4 +45,4 @@ jobs:
         if: always() && (! contains(github.ref, '/dependabot/'))
         with:
           check_name: Python Tests
-          files: CDK_PROJECTS/**/reports/*-junit.xml
+          files: ./**/reports/*-junit.xml
