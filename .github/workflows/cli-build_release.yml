@@ -39,7 +39,7 @@ jobs:
         run: |
           version="${{ github.ref_name }}"
           version="${version/refs\/tags\/v/}"  # Remove 'refs/tags/v' prefix
-          echo "version=$version"
+          echo "$version"
           echo "version=$version" >> $GITHUB_OUTPUT
 
       - name: Build CLI
@@ -52,7 +52,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@v2
         with:
-          path: ./bin/${{ env.ARCH_AMD64 }}-${{ env.GOOS_L }}-aws_cdk_poetry- ${{ steps.extract_version.outputs.version }}
+          path: ./bin/${{ env.ARCH_AMD64 }}-${{ env.GOOS_L }}-aws_cdk_poetry-${{ steps.extract_version.outputs.version }}
       
       - name: Verify files
         if: startsWith(github.ref, 'refs/tags/')
@@ -63,5 +63,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: ./bin/${{ env.ARCH_AMD64 }}-${{ env.GOOS_L }}-aws_cdk_poetry- ${{ steps.extract_version.outputs.version }}
+          files: ./bin/${{ env.ARCH_AMD64 }}-${{ env.GOOS_L }}-aws_cdk_poetry-${{ steps.extract_version.outputs.version }}
           tag_name:  ${{ github.ref_name }}
