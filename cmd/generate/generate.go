@@ -6,32 +6,53 @@ package generate
 
 import (
 	"fmt"
+	"os"
+    "runtime"
 
 	"github.com/spf13/cobra"
+
+	"aws_cdk_poetry/internal/generator"
+	"aws_cdk_poetry/internal/utils"
 )
 
 // generateCmd represents the generate command
 var GenerateCmd = &cobra.Command{
 	Use:   "generate",
 	Short: "Generate Poetry Managed CDK project",
-	Long: `Sets up an aws cdk project for python with virtual environment and dependencies managed by poetry.
-For example:
-$ aws_cdk_poetry generate <project_name>`,
+	Long: `Sets up an aws cdk project for python with virtual environment and dependencies managed by poetry.`,
 	
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("generate called")
+		platform, _ := cmd.Flags().GetString("platform")
+		name, _ := cmd.Flags().GetString("name")
+		co := utils.CustomOutput{}
+		co.Headline = "Setup"
+		
+		platformConfigs := generator.SetupPlatforms()
+		platformConfig, ok := platformConfigs[platform]
+		if !ok {
+			fmt.Println("Platform not found:", platform)
+			return
+		}
+		success, err := platformConfig.Generate(name, co)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+		if !success {
+			fmt.Println("Generation failed.")
+			os.Exit(1)
+		}
 	},
 }
 
 func init() {
+	
+	// detect OS for default build
+	os := runtime.GOOS
+	fmt.Println(os)
 
-	// Here you will define your flags and configuration settings.
+	// Persistent Flags 
+	GenerateCmd.PersistentFlags().String("name", "TestProject", "name of the project")
+	GenerateCmd.PersistentFlags().String("platform", os , "platform to generate for build")
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// generateCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// generateCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
