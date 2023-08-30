@@ -1,0 +1,67 @@
+name: CLI Build 2 Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+    branches:
+      - main
+  workflow_dispatch: {}
+  pull_request:
+
+env:
+  GO_VERSION: 1.18.1
+  ARCH_AMD64: "amd64"
+  GOOS_L: "linux"
+  GOOS_W: "windows"
+  GOOS_D: "darwin"
+
+jobs:
+  cli-build-2-release:
+    permissions:
+      contents: write
+      issues: read
+      checks: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - run: |
+          go version
+
+      - name: Extract release version
+        id: extract_version
+        run: |
+          version="${{ github.ref_name }}"
+          version="${version/refs\/tags\/v/}"  # Remove 'refs/tags/v' prefix
+          echo "$version"
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Build CLI
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          chmod +x ci/build-cli.sh
+          ci/build-cli.sh  ${{ steps.extract_version.outputs.version }}
+
+      - name: Publish Artifacts
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./bin/${{ env.ARCH_AMD64 }}-${{ env.GOOS_L }}-aws_cdk_poetry-${{ steps.extract_version.outputs.version }}
+      
+      - name: Verify files
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          ls ./bin/${{ env.ARCH_AMD64 }}-${{ env.GOOS_L }}-aws_cdk_poetry* -l
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ./bin/${{ env.ARCH_AMD64 }}-${{ env.GOOS_L }}-aws_cdk_poetry-${{ steps.extract_version.outputs.version }}
+          tag_name:  ${{ github.ref_name }}

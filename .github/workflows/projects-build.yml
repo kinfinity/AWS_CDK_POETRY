@@ -1,4 +1,4 @@
-name: Python Build
+name: Generated Projects Build
 on:
   push:
     branches:
@@ -10,10 +10,12 @@ env:
   PYTHON_VERSION: 3.11.2
 
 jobs:
-  test-backend-python:
+  cdk-w-poetry-build:
     permissions:
-      contents: write
+      contents: read
+      issues: read
       checks: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -35,7 +37,6 @@ jobs:
         run: |
           pip install poetry==1.5.1
 
-      # Add linting once errors fixed
       - name: Build and test all projects
         run: |
           ci/build-all-poetry-projects.sh
@@ -45,4 +46,5 @@ jobs:
         if: always() && (! contains(github.ref, '/dependabot/'))
         with:
           check_name: Python Tests
-          files: CDK_PROJECTS/**/reports/*-junit.xml
+          files: |
+            reports/*-junit.xml
