@@ -1,4 +1,4 @@
-name: Python Build
+name: Generated Projects Build
 on:
   push:
     branches:
@@ -37,7 +37,6 @@ jobs:
         run: |
           pip install poetry==1.5.1
 
-      # Add linting once errors fixed
       - name: Build and test all projects
         run: |
           ci/build-all-poetry-projects.sh
