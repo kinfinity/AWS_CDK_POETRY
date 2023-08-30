@@ -13,9 +13,9 @@ fi
 # Define the exit trap function
 cleanup() {
     echo "Cleaning up before exit..."
-    find . -type f -name ${ARCH_AMD64}-${GOOS_W}-aws_cdk_poetry-${RELEASE_VERSION} -delete
-    find . -type f -name ${ARCH_AMD64}-${GOOS_L}-aws_cdk_poetry-${RELEASE_VERSION} -delete
-    find . -type f -name ${ARCH_AMD64}-${GOOS_D}-aws_cdk_poetry-${RELEASE_VERSION} -delete
+    find . -type f -name ./bin/${ARCH_AMD64}-${GOOS_W}-aws_cdk_poetry-${RELEASE_VERSION} -delete
+    find . -type f -name ./bin/${ARCH_AMD64}-${GOOS_L}-aws_cdk_poetry-${RELEASE_VERSION} -delete
+    find . -type f -name ./bin/${ARCH_AMD64}-${GOOS_D}-aws_cdk_poetry-${RELEASE_VERSION} -delete
 }
 # trap cleanup EXIT
 
@@ -34,17 +34,21 @@ go get -u golang.org/x/lint/golint
 go vet .
 # golint .
 
+! [ -d bin ] && mkdir bin
 # 
 echo "Building binary for Windows..."
-! [ -f ${ARCH_AMD64}-${GOOS_W}-aws_cdk_poetry-${RELEASE_VERSION} ] && env GOOS=${GOOS_W} GOARCH=${ARCH_AMD64} go build -o ${ARCH_AMD64}-${GOOS_W}-aws_cdk_poetry-${RELEASE_VERSION}
+! [ -f ./bin/${ARCH_AMD64}-${GOOS_W}-aws_cdk_poetry-${RELEASE_VERSION} ] && env GOOS=${GOOS_W} GOARCH=${ARCH_AMD64} go build -o ./bin/${ARCH_AMD64}-${GOOS_W}-aws_cdk_poetry-${RELEASE_VERSION}
 
 # 
 echo "Building binary for Linux..."
-! [ -f ${ARCH_AMD64}-${GOOS_L}-aws_cdk_poetry-${RELEASE_VERSION} ] && env GOOS=${GOOS_L} GOARCH=${ARCH_AMD64} go build -o ${ARCH_AMD64}-${GOOS_L}-aws_cdk_poetry-${RELEASE_VERSION}
+! [ -f ./bin/${ARCH_AMD64}-${GOOS_L}-aws_cdk_poetry-${RELEASE_VERSION} ] && env GOOS=${GOOS_L} GOARCH=${ARCH_AMD64} go build -o ./bin/${ARCH_AMD64}-${GOOS_L}-aws_cdk_poetry-${RELEASE_VERSION}
 
 # 
 echo "Building binary for Darwin..."
-! [ -f ${ARCH_AMD64}-${GOOS_D}-aws_cdk_poetry-${RELEASE_VERSION} ] && env GOOS=${GOOS_D} GOARCH=${ARCH_AMD64} go build -o ${ARCH_AMD64}-${GOOS_D}-aws_cdk_poetry-${RELEASE_VERSION}
+! [ -f ./bin/${ARCH_AMD64}-${GOOS_D}-aws_cdk_poetry-${RELEASE_VERSION} ] && env GOOS=${GOOS_D} GOARCH=${ARCH_AMD64} go build -o ./bin/${ARCH_AMD64}-${GOOS_D}-aws_cdk_poetry-${RELEASE_VERSION}
+
+# Check files
+[ -d ./bin ] && ls ./bin -l
 
 # RUN cmd
 # ./aws_cdk_poetry generate --name cdktest --platform Linux|Darwin|Windows
