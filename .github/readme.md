@@ -4,7 +4,7 @@
 
 The **AWS CDK Poetry** project aims to automate the generation of AWS CDK (Cloud Development Kit) projects managed with Python Poetry. This documentation provides an overview of the project, its goals, and instructions for setting up and using the automated project generation process.
 
-## [![Python Build](https://github.com/kinfinity/AWS_CDK_POETRY/actions/workflows/code-build.yml/badge.svg)](https://github.com/kinfinity/AWS_CDK_POETRY/actions/workflows/code-build.yml) [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+## [![Generated Projects Build](https://github.com/kinfinity/AWS_CDK_POETRY/actions/workflows/projects-build.yml/badge.svg)](https://github.com/kinfinity/AWS_CDK_POETRY/actions/workflows/projects-build.yml)[![CLI Build 2 Release](https://github.com/kinfinity/AWS_CDK_POETRY/actions/workflows/cli-build_release.yml/badge.svg)](https://github.com/kinfinity/AWS_CDK_POETRY/actions/workflows/cli-build_release.yml) [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 ## Table of Contents
 
